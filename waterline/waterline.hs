@@ -1,13 +1,10 @@
 import Data.List
 
-rmdups :: (Ord a) => [a] -> [a]
-rmdups = map head . group . sort
-
 findWaterLine :: [[Integer]] -> (Integer, Integer)
 findWaterLine matrix =
     maximumBy compareWaterLine waterLines
   where
-    waterLines = zip (rmdups $ concat matrix) (tail $ rmdups $ concat matrix)
+    waterLines = zip (nub $ concat matrix) (tail $ nub $ concat matrix)
     compareWaterLine lineA lineB =
         compare (countIsland lineA) (countIsland lineB)
       where
